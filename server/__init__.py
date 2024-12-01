@@ -1,11 +1,10 @@
-from fastapi import FastAPI
-from . import (
-    app_news,
-    app_plants,
-    app_root,
-    app_users,
-)
+"""
+Main modul contain main `app`
+"""
 
+from fastapi import FastAPI
+
+from . import app_news, app_plants, app_root, app_users
 
 app = FastAPI()
 

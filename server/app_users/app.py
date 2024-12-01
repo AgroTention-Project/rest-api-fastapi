@@ -1,12 +1,12 @@
-from fastapi import APIRouter, Depends, status
-from .models import User
-from fastapi import HTTPException
-from ..lib_auth.dependencies import verify_token
-from ..lib_auth.models import Claims
-from ..lib_utils.response import Response
-from ..lib_firebase import fb_auth
 from typing import Annotated
 
+from fastapi import APIRouter, Depends, HTTPException, status
+
+from ..lib_auth.dependencies import verify_token
+from ..lib_auth.models import Claims
+from ..lib_firebase import fb_auth
+from ..lib_utils.response import Response
+from .models import User
 
 router = APIRouter(
     prefix="/users",

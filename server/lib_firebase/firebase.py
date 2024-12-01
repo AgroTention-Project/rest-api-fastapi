@@ -1,10 +1,17 @@
-from firebase_admin import initialize_app, auth, firestore_async
-from firebase_admin.credentials import Certificate, ApplicationDefault
-from google.cloud import secretmanager
+"""Firebase Setup and Configurations"""
+
 import json
+
+from firebase_admin import auth, firestore_async, initialize_app
+from firebase_admin.credentials import ApplicationDefault, Certificate
+from google.cloud import secretmanager
 
 
 def get_credential(secret_name: str):
+    """
+    ## `get_credential`
+    Get service account from secret
+    """
     client = secretmanager.SecretManagerServiceClient()
     name = f"projects/555046474426/secrets/{secret_name}/versions/latest"
 
@@ -14,8 +21,9 @@ def get_credential(secret_name: str):
 
 
 try:
-    cred = get_credential()
-except:
+    cred = get_credential("FIREBASE_ADMIN_SA")
+except Exception as exc:
+    print(f"An error occurred: {type(exc).__name__} - {exc}")
     cred = ApplicationDefault()
 
 fb_app = initialize_app(cred)

@@ -1,8 +1,10 @@
+from typing import List
+
 from fastapi import APIRouter
+
+from ..lib_utils.response import Response
 from . import utils
 from .models import News
-from ..lib_utils.response import Response
-from typing import List
 
 # -------------------------------------------------------------- #
 # ---       News

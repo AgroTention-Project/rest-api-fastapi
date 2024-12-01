@@ -4,6 +4,7 @@
 import requests
 from bs4 import BeautifulSoup
 from fastapi import HTTPException, status
+
 from .models import News
 
 
@@ -18,11 +19,11 @@ def get_content(url: str):
                 status_code=status.HTTP_424_FAILED_DEPENDENCY,
                 detail={"success": False, "error": "news service error"},
             )
-    except Exception as e:
+    except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_424_FAILED_DEPENDENCY,
             detail={"success": False, "error": f"{e}"},
-        )
+        ) from exc
 
 
 def get_recent_news(start: int = 0):
@@ -49,7 +50,7 @@ def get_recent_news(start: int = 0):
         publisher = publisher_tag.text.strip() if publisher_tag else None
         time = time_tag.text.strip() if time_tag else None
 
-        if title and link:
+        try:
             results.append(
                 News.model_validate(
                     {
@@ -60,4 +61,8 @@ def get_recent_news(start: int = 0):
                     }
                 )
             )
+        except Exception as exc:
+            print(f"News error: {str(exc)}")
+            continue
+
     return results

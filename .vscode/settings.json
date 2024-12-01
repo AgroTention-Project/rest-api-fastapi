@@ -1,1 +1,9 @@
-{"editor.formatOnSave": true, "editor.defaultFormatter": "ms-python.black-formatter"}
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "pylint.enabled": true,
+    "pylint.cwd": "${workspaceFolder}",
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
