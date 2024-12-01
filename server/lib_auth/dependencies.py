@@ -5,6 +5,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.logger import logger
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from .models import Claims
+from firebase_admin.exceptions import FirebaseError
 
 Credential = Annotated[
     HTTPAuthorizationCredentials,
@@ -15,8 +16,6 @@ Credential = Annotated[
         )
     ),
 ]
-
-bearer = HTTPBearer()
 
 
 def verify_token(credential: Credential) -> Claims:
@@ -35,6 +34,22 @@ def verify_token(credential: Credential) -> Claims:
         print(decoded_token)
         claims = Claims.model_validate(decoded_token, strict=False)
         return claims
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=Response(
+                success=False,
+                message="invalid id token",
+            ).model_dump(),
+        )
+    except FirebaseError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=Response(
+                success=False,
+                message=f"{exc.code}: {str(exc)}",
+            ).model_dump(),
+        )
 
     except Exception as exc:
         logger.error(exc)
