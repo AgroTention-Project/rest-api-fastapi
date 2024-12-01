@@ -1,6 +1,6 @@
-from typing import Any, List, Optional
+from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class UserMetadata(BaseModel):
@@ -20,3 +20,13 @@ class User(BaseModel):
     disabled: bool
     tokens_valid_after_timestamp: int
     user_metadata: UserMetadata
+
+
+class UserExtras(BaseModel):
+    is_admin: bool = Field(default=False)
+    is_expert: bool = Field(default=False)
+    company: Optional[str] = Field(default=None)
+    role_at_company: Optional[str] = Field(default=None)
+
+
+user = UserExtras()
