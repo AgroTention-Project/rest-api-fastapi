@@ -1,5 +1,5 @@
 runtime: python312
-entrypoint: uvicorn server:app --host 0.0.0.0 --port $PORT
+entrypoint: fastapi run server --host 0.0.0.0 --port $PORT
 instance_class: F2  
 env_variables:
   # Env
