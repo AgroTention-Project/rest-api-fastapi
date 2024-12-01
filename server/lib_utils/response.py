@@ -1,7 +1,7 @@
 from pydantic import BaseModel
-from typing import Optional, TypeVar, Generic
+from typing import Optional, TypeVar, Generic, Union, List
 
-T = TypeVar("T", bound=BaseModel)
+T = TypeVar("T", bound=Union[BaseModel, List[BaseModel]])
 
 
 class Response(BaseModel, Generic[T]):
