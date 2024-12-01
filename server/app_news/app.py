@@ -10,7 +10,7 @@ from typing import List
 router = APIRouter(prefix="/news", tags=["News"])
 
 
-@router.get("/{start}")
+@router.get("")
 async def get_recent_news(start: int = 0) -> Response[List[News]]:
     news = utils.get_recent_news(start)
     return Response(success=True, data=news)
