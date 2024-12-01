@@ -1,0 +1,14 @@
+# Env
+.env*
+
+# Credentials
+service-account*
+
+# Python
+__pycache__
+*.pyc
+venv/
+
+# Logs
+*.logs
+*.log
