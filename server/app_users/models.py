@@ -29,4 +29,9 @@ class UserExtras(BaseModel):
     role_at_company: Optional[str] = Field(default=None)
 
 
+class UpdateUserExtras(BaseModel):
+    company: Optional[str] = Field(default=None)
+    role_at_company: Optional[str] = Field(default=None)
+
+
 user = UserExtras()
