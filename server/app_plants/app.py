@@ -9,7 +9,7 @@ router = APIRouter(prefix="/plants")
 plants_collection = fb_fstore.collection("plants")
 
 
-@router.get("/{plant_slug}")
+@router.get("/{plant_slug}", tags=["Plants"])
 async def get_plant_detail(plant_slug: str) -> Response[Plant]:
     try:
         doc_ref = plants_collection.document(plant_slug)
