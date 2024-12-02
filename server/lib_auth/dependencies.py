@@ -55,7 +55,7 @@ def verify_token(credential: Credential) -> Claims:
 
     decoded_token = fb_auth.verify_id_token(token, check_revoked=True)
     claims = Claims.model_validate(decoded_token, strict=False)
-    logger.info(f"user log: {claims.uid} | {claims.email}")
+    logger.info("user log: %s | %s", claims.uid, claims.email)
     return claims
 
 

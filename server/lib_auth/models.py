@@ -1,9 +1,13 @@
+"""Module Token Claims Model"""
+
 from typing import Any, Optional
 
 from pydantic import BaseModel
 
 
 class Claims(BaseModel):
+    """Token Claims Model"""
+
     iss: Optional[str] = None
     aud: Optional[str] = None
     auth_time: Optional[int] = None

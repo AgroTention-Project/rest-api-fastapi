@@ -1,3 +1,5 @@
+"""Firebase Exceptions Handler"""
+
 from fastapi import HTTPException, Request
 from fastapi.logger import logger
 # Codes
@@ -14,8 +16,9 @@ from ..lib_utils.response import Response
 logger.setLevel("ERROR")
 
 
-def firebase_error(req: Request, exc: FirebaseError):
-    logger.error(f"FIREBASE ERROR: {str(exc)}")
+def firebase_error(_: Request, exc: FirebaseError):
+    """Firebase Error Handler handle every exception based on `FirebaseError`"""
+    logger.error("FIREBASE ERROR: %s", str(exc))
     if exc.code in [NOT_FOUND]:
         status_code = 404
     elif exc.code in [CONFLICT, ALREADY_EXISTS, ABORTED]:

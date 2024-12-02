@@ -1,4 +1,8 @@
-from fastapi import APIRouter, HTTPException, status
+"""
+Plants App Module
+"""
+
+from fastapi import APIRouter
 from firebase_admin.exceptions import NotFoundError
 
 from ..lib_firebase import fb_fstore
@@ -11,6 +15,9 @@ plants_collection = fb_fstore.collection("plants")
 
 @router.get("/{plant_slug}", tags=["Plants"])
 async def get_plant_detail(plant_slug: str) -> Response[Plant]:
+    """
+    Get Plant Information by Plant Slug
+    """
     doc_ref = plants_collection.document(plant_slug)
     doc = await doc_ref.get()
     if not doc.exists:

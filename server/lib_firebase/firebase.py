@@ -1,9 +1,11 @@
 """Firebase Setup and Configurations"""
 
 import json
+import sys
 
 from firebase_admin import auth, firestore_async, initialize_app, storage
 from firebase_admin.credentials import ApplicationDefault, Certificate
+from google.api_core.exceptions import GoogleAPICallError, GoogleAPIError
 from google.cloud import secretmanager
 
 
@@ -21,10 +23,18 @@ def get_credential(secret_name: str):
 
 
 try:
+    print("Try get credential from google secret manager...")
     cred = get_credential("FIREBASE_ADMIN_SA")
-except Exception as exc:
+    print("Found credential for project %s from google secret manager", cred.project_id)
+except (GoogleAPIError, GoogleAPICallError) as exc:
     print(f"An error occurred: {type(exc).__name__} - {exc}")
+    print("Try get credential from local...")
     cred = ApplicationDefault()
+    print("Found credential for project %s from local", cred.project_id)
+except (FileNotFoundError, ValueError) as exc:
+    print(exc)
+    sys.exit(1)
+
 
 fb_app = initialize_app(cred)
 fb_auth = auth.Client(fb_app)

@@ -1,3 +1,7 @@
+"""
+App Users Module
+"""
+
 from io import BytesIO
 from typing import Annotated
 
@@ -21,6 +25,7 @@ users_extras_coll = fb_fstore.collection("users_extras")
 def get_user_detail(
     active_user: Annotated[Claims, Depends(verify_token)]
 ) -> Response[User]:
+    """Get Firebase User Detail (Same as firebase.auth.getUser)"""
     user_id = active_user.uid
     user = fb_auth.get_user(user_id)
     user = User.model_validate(user, from_attributes=True)
@@ -31,6 +36,7 @@ def get_user_detail(
 async def delete_user(
     active_user: Annotated[Claims, Depends(verify_token)]
 ) -> Response:
+    """Delete user and extras information (if exist)"""
     user_id = active_user.uid
     fb_auth.delete_user(user_id)
     doc_ref = users_extras_coll.document(user_id)
@@ -44,6 +50,7 @@ async def delete_user(
 async def get_or_create_user_extras(
     active_user: Annotated[Claims, Depends(verify_token)]
 ) -> Response[UserExtras]:
+    """Get user extras data or create default value if not exist"""
     user_id = active_user.uid
     doc_ref = users_extras_coll.document(user_id)
     doc = await doc_ref.get()
@@ -66,7 +73,7 @@ async def update_user_extras(
     body: UpdateUserExtras,
     active_user: Annotated[Claims, Depends(verify_token)],
 ):
-
+    """Update user extras information"""
     user_id = active_user.uid
     doc_ref = users_extras_coll.document(user_id)
     await doc_ref.update(body.model_dump())
@@ -78,6 +85,8 @@ async def update_or_create_photo_profile(
     image: UploadFile,
     active_user: Annotated[Claims, Depends(verify_token)],
 ):
+    """Create or update (if exist) user photo profile and
+    add `photo_url` data into user information"""
     if not image.content_type.startswith("image/"):
         raise HTTPException(
             status_code=400,

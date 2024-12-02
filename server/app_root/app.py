@@ -1,27 +1,21 @@
+"""Index App"""
+
 from fastapi import APIRouter
 from pydantic import BaseModel
 
 from ..lib_utils.response import Response
 
 
-# -------------------------------------------------------------- #
-# ---       Models
-# -------------------------------------------------------------- #
 class IndexResponse(BaseModel):
+    """Index Response Model"""
+
     root: str = "see API documentation at /docs"
 
 
-# -------------------------------------------------------------- #
-# ---       Router
-# -------------------------------------------------------------- #
 router = APIRouter(prefix="", include_in_schema=False)
-
-
-# -------------------------------------------------------------- #
-# ---       Handlers
-# -------------------------------------------------------------- #
 
 
 @router.get(path="/")
 def get_index() -> Response[IndexResponse]:
+    """Index Handler"""
     return Response(success=True, data=IndexResponse())

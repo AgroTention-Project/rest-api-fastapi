@@ -1,7 +1,15 @@
+"""
+Models for Diseases
+"""
+
 from pydantic import BaseModel, Field
 
 
 class Classification(BaseModel):
+    """
+    Disease Classification Model
+    """
+
     kingdom: str
     phylum: str
     disease_class: str = Field(serialization_alias="class")
@@ -12,12 +20,20 @@ class Classification(BaseModel):
 
 
 class DiseaseName(BaseModel):
+    """
+    Disease Name Model
+    """
+
     scientific: str
     local: str
     national: str
 
 
 class Disease(BaseModel):
+    """
+    Disease Model
+    """
+
     description: str
     name: DiseaseName
     classification: Classification

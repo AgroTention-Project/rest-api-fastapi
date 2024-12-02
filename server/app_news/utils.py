@@ -1,24 +1,37 @@
-# -------------------------------------------------------------- #
-# ---       Utilities
-# -------------------------------------------------------------- #
+"""Utilities for Scrapping News From Google"""
+
 import requests
 from bs4 import BeautifulSoup
 from fastapi import HTTPException, status
+from pydantic import ValidationError
 
 from .models import News
 
+BASE_URL = (
+    "https://www.google.com/search?&start={start}&client=firefox-b-d"
+    "&sca_esv=a30db985f4ecea9c&sxsrf=ADLYWIK8ZTWIdrLNHeoYITbuzabeobt2"
+    "mA:1732880182922&q=pertanian&tbm=nws&source=lnms&fbs=AEQNm0DRkam6"
+    "RZP7GtztEOLmt4oJmiAI3QJ-6ZQUalsYlC_NOOk15WNvF8ekLVxAd0FLqSe5QJ1OfS"
+    "bfoznJIKO4-wLjuPDV3ajP_aomvfb8G3QmKpOntW7XgRLt__ZenW2iNqhSS0DmCvAJ"
+    "v3z3J8MU5HA5S9Lwh14Wc7TLSlvK3d2_Yxg_Nt46SXVQMsCPBK2LukVzXR-z_C721Vr"
+    "A_7-CbvzfR41H2w&sa=X&ved=2ahUKEwim7fbduYGKAxVtwjgGHe6ND9oQ0pQJegQIIxAB"
+)
+
 
 def get_content(url: str):
+    """
+    Get HTML content from google search news
+    """
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=5)
         if response.status_code == 200:
             content = response.content
             return content
-        else:
-            raise HTTPException(
-                status_code=status.HTTP_424_FAILED_DEPENDENCY,
-                detail={"success": False, "error": "news service error"},
-            )
+
+        raise HTTPException(
+            status_code=status.HTTP_424_FAILED_DEPENDENCY,
+            detail={"success": False, "error": "news service error"},
+        )
 
     except Exception as exc:
         raise HTTPException(
@@ -28,9 +41,8 @@ def get_content(url: str):
 
 
 def get_recent_news(start: int = 0):
-    content = get_content(
-        f"https://www.google.com/search?&start={start}&client=firefox-b-d&sca_esv=a30db985f4ecea9c&sxsrf=ADLYWIK8ZTWIdrLNHeoYITbuzabeobt2mA:1732880182922&q=pertanian&tbm=nws&source=lnms&fbs=AEQNm0DRkam6RZP7GtztEOLmt4oJmiAI3QJ-6ZQUalsYlC_NOOk15WNvF8ekLVxAd0FLqSe5QJ1OfSbfoznJIKO4-wLjuPDV3ajP_aomvfb8G3QmKpOntW7XgRLt__ZenW2iNqhSS0DmCvAJv3z3J8MU5HA5S9Lwh14Wc7TLSlvK3d2_Yxg_Nt46SXVQMsCPBK2LukVzXR-z_C721VrA_7-CbvzfR41H2w&sa=X&ved=2ahUKEwim7fbduYGKAxVtwjgGHe6ND9oQ0pQJegQIIxAB"
-    )
+    """Scrapping and get data from content"""
+    content = get_content(BASE_URL.format(start=start))
 
     soup = BeautifulSoup(
         content,
@@ -63,7 +75,7 @@ def get_recent_news(start: int = 0):
                     }
                 )
             )
-        except Exception as exc:
+        except ValidationError as exc:
             print(f"News error: {str(exc)}")
             continue
 

@@ -1,3 +1,8 @@
+"""
+Diseases App Module
+Contains services, handlers, and routers
+"""
+
 from fastapi import APIRouter
 from firebase_admin.exceptions import NotFoundError
 
@@ -11,6 +16,9 @@ disease_collection = fb_fstore.collection("diseases")
 
 @router.get("/{disease_slug}", tags=["Diseases"])
 async def get_disease_detail(disease_slug: str) -> Response[Disease]:
+    """
+    Get Disease By Slug
+    """
     doc_ref = disease_collection.document(disease_slug)
     doc = await doc_ref.get()
     if not doc.exists:
@@ -20,22 +28,3 @@ async def get_disease_detail(disease_slug: str) -> Response[Disease]:
     disease = Disease.model_validate(disease, strict=False)
 
     return Response(success=True, data=disease)
-
-
-{
-    "description": "Xanthomonas oryzae adalah bakteri patogen yang menyebabkan penyakit serius pada tanaman padi, dikenal dengan penyakit Hawar Daun Bakteri (HDB) atau Bacterial Leaf Blight (BLB).",
-    "classification": {
-        "disease_class": "Gammaproteobacteria",
-        "kingdom": "Bacteria",
-        "species": "Xanthomonas oryzae",
-        "order": "Xanthomonadales",
-        "phylum": "Proteobacteria",
-        "family": "Xanthomonadaceae",
-        "genus": "Xanthomonas",
-    },
-    "name": {
-        "scientific": "Xanthomonas oryzae",
-        "local": "Hawar Daun",
-        "national": "Hawar Daun",
-    },
-}
