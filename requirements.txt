@@ -36,6 +36,7 @@ httplib2==0.22.0
 httptools==0.6.4
 httpx==0.28.0
 idna==3.10
+iniconfig==2.0.0
 isort==5.13.2
 Jinja2==3.1.4
 markdown-it-py==3.0.0
@@ -48,6 +49,7 @@ packaging==24.2
 pathspec==0.12.1
 pillow==11.0.0
 platformdirs==4.3.6
+pluggy==1.5.0
 proto-plus==1.25.0
 protobuf==5.29.0
 pyasn1==0.6.1
