@@ -8,7 +8,7 @@ class Classification(BaseModel):
     order: str
     family: str
     genus: str
-    speciess: str
+    species: str
 
 
 class PlantName(BaseModel):
