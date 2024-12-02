@@ -2,7 +2,7 @@
 
 import json
 
-from firebase_admin import auth, firestore_async, initialize_app
+from firebase_admin import auth, firestore_async, initialize_app, storage
 from firebase_admin.credentials import ApplicationDefault, Certificate
 from google.cloud import secretmanager
 
@@ -29,9 +29,14 @@ except Exception as exc:
 fb_app = initialize_app(cred)
 fb_auth = auth.Client(fb_app)
 fb_fstore = firestore_async.client(fb_app, database_id="agrotention-firestore-db")
+fb_storage = storage.bucket(
+    name="agrotention-project-441716.firebasestorage.app", app=fb_app
+)
+
 
 __all__ = [
     "fb_app",
     "fb_auth",
     "fb_fstore",
+    "fb_storage",
 ]
