@@ -5,8 +5,6 @@ from fastapi.logger import logger
 
 from ..lib_utils.response import Response
 
-logger.setLevel("ERROR")
-
 
 def common_error(_: Request, exc: Exception):
     """Common Error Handler handle base `Exception`"""

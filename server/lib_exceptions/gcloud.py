@@ -6,8 +6,6 @@ from google.api_core.exceptions import GoogleAPICallError
 
 from ..lib_utils.response import Response
 
-logger.setLevel(level="ERROR")
-
 
 def google_cloud_error(_: Request, exc: GoogleAPICallError):
     """Handle exceptions based on `GoogleAPICallError`"""

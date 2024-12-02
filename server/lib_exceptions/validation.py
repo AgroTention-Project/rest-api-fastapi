@@ -7,8 +7,6 @@ from pydantic.errors import PydanticUserError
 
 from ..lib_utils.response import Response
 
-logger.setLevel("ERROR")
-
 
 def pydantic_user_error(_: Request, exc: PydanticUserError):
     """Handle Pydantic User Error"""

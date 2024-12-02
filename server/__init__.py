@@ -9,10 +9,11 @@ from pydantic import ValidationError
 from pydantic.errors import PydanticUserError
 
 from . import app_diseases, app_news, app_plants, app_root, app_users
-from .exceptions.common import common_error
-from .exceptions.firebase import firebase_error
-from .exceptions.gcloud import google_cloud_error
-from .exceptions.validation import pydantic_user_error, validation_error
+from .lib_exceptions.common import common_error
+from .lib_exceptions.firebase import firebase_error
+from .lib_exceptions.gcloud import google_cloud_error
+from .lib_exceptions.validation import pydantic_user_error, validation_error
+
 
 app = FastAPI(
     title="AgroTention API",

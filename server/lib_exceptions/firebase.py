@@ -13,8 +13,6 @@ from firebase_admin.exceptions import (ABORTED, ALREADY_EXISTS, CANCELLED,
 
 from ..lib_utils.response import Response
 
-logger.setLevel("ERROR")
-
 
 def firebase_error(_: Request, exc: FirebaseError):
     """Firebase Error Handler handle every exception based on `FirebaseError`"""
