@@ -14,8 +14,8 @@ from .lib_exceptions.firebase import firebase_error
 from .lib_exceptions.gcloud import google_cloud_error
 from .lib_exceptions.validation import pydantic_user_error, validation_error
 
-
 app = FastAPI(
+    debug=True,
     title="AgroTention API",
     version="0.0.3",
     description="""

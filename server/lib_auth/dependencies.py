@@ -7,10 +7,10 @@ Contains auth bearer
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
-from fastapi.logger import logger
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from ..lib_firebase import fb_auth
+from ..lib_utils.logger import logger
 from ..lib_utils.response import Response
 from .models import Claims
 
@@ -28,18 +28,7 @@ Credential = Annotated[
 def verify_token(credential: Credential) -> Claims:
     """
     ## `verify_token`
-
     Verify token and return active user claims.
-
-    Parameters:
-        `credential` (`Credential`): Request `Authorization` header (ex: `Bearer ey29vj13...`)
-
-
-    Returns:
-        `Claims`
-
-    Raises:
-        `HTTPException`
     """
 
     if credential is None:
@@ -55,6 +44,7 @@ def verify_token(credential: Credential) -> Claims:
 
     decoded_token = fb_auth.verify_id_token(token, check_revoked=True)
     claims = Claims.model_validate(decoded_token, strict=False)
+
     logger.info("user log: %s | %s", claims.uid, claims.email)
     return claims
 

@@ -1,8 +1,8 @@
 """Module Common Exceptions Handlers"""
 
 from fastapi import HTTPException, Request
-from fastapi.logger import logger
 
+from ..lib_utils.logger import logger
 from ..lib_utils.response import Response
 
 

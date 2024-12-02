@@ -3,11 +3,12 @@
 import json
 import sys
 
-from fastapi.logger import logger
 from firebase_admin import auth, firestore_async, initialize_app, storage
 from firebase_admin.credentials import ApplicationDefault, Certificate
 from google.api_core.exceptions import GoogleAPICallError, GoogleAPIError
 from google.cloud import secretmanager
+
+from ..lib_utils.logger import logger
 
 
 def get_credential(secret_name: str):
@@ -18,19 +19,21 @@ def get_credential(secret_name: str):
     client = secretmanager.SecretManagerServiceClient()
     name = f"projects/555046474426/secrets/{secret_name}/versions/latest"
 
+    logger.info(
+        "Google Secret Manager: Try get credential from google secret manager..."
+    )
     response = client.access_secret_version(name=name)
     secret_value = response.payload.data.decode("UTF-8")
     return Certificate(json.loads(secret_value))
 
 
 try:
-    logger.info("Try get credential from google secret manager...")
     cred = get_credential("FIREBASE_ADMIN_SA")
     logger.info(
         "Found credential for project %s from google secret manager", cred.project_id
     )
 except (GoogleAPIError, GoogleAPICallError) as exc:
-    logger.error("An error occurred: %s - %s", type(exc).__name__, str(exc))
+    logger.error("Google Secret Manager: %s", str(exc.message))
     logger.info("Try get credential from local...")
     cred = ApplicationDefault()
     logger.info("Found credential for project %s from local", cred.project_id)

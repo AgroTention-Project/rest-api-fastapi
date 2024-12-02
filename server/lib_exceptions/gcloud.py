@@ -1,9 +1,9 @@
 """Google Api Exception Handler Module"""
 
 from fastapi import HTTPException, Request
-from fastapi.logger import logger
 from google.api_core.exceptions import GoogleAPICallError
 
+from ..lib_utils.logger import logger
 from ..lib_utils.response import Response
 
 

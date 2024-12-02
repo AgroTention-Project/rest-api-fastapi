@@ -1,7 +1,6 @@
 """Firebase Exceptions Handler"""
 
 from fastapi import HTTPException, Request
-from fastapi.logger import logger
 # Codes
 from firebase_admin.exceptions import (ABORTED, ALREADY_EXISTS, CANCELLED,
                                        CONFLICT, DATA_LOSS, DEADLINE_EXCEEDED,
@@ -11,6 +10,7 @@ from firebase_admin.exceptions import (ABORTED, ALREADY_EXISTS, CANCELLED,
                                        RESOURCE_EXHAUSTED, UNAUTHENTICATED,
                                        UNAVAILABLE, UNKNOWN, FirebaseError)
 
+from ..lib_utils.logger import logger
 from ..lib_utils.response import Response
 
 
