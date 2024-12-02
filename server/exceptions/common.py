@@ -12,6 +12,6 @@ def common_error(req: Request, exc: Exception):
         status_code=500,
         detail=Response(
             success=False,
-            message=str(exc),
+            message=f"{str(exc)}",
         ).model_dump(),
     ) from exc
