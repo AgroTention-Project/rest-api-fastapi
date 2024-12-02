@@ -1,23 +1,14 @@
+from io import BytesIO
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, UploadFile, HTTPException
-from io import BytesIO
+from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from PIL import Image
-
 
 from ..lib_auth.dependencies import verify_token
 from ..lib_auth.models import Claims
-from ..lib_firebase import (
-    fb_auth,
-    fb_fstore,
-    fb_storage,
-)
+from ..lib_firebase import fb_auth, fb_fstore, fb_storage
 from ..lib_utils.response import Response
-from .models import (
-    UpdateUserExtras,
-    User,
-    UserExtras,
-)
+from .models import UpdateUserExtras, User, UserExtras
 
 router = APIRouter(
     prefix="/users",

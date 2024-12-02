@@ -7,7 +7,7 @@ from firebase_admin.exceptions import FirebaseError
 from google.api_core.exceptions import GoogleAPICallError
 from pydantic.errors import PydanticUserError
 
-from . import app_news, app_plants, app_root, app_users, app_diseases
+from . import app_diseases, app_news, app_plants, app_root, app_users
 from .exceptions.common import common_error
 from .exceptions.firebase import firebase_error
 from .exceptions.gcloud import google_cloud_error
