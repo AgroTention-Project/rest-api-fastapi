@@ -7,7 +7,7 @@ from ..lib_auth.dependencies import verify_token
 from ..lib_auth.models import Claims
 from ..lib_firebase import fb_auth, fb_fstore
 from ..lib_utils.response import Response
-from .models import User, UserExtras, UpdateUserExtras
+from .models import UpdateUserExtras, User, UserExtras
 
 router = APIRouter(
     prefix="/users",
