@@ -19,10 +19,11 @@ def get_content(url: str):
                 status_code=status.HTTP_424_FAILED_DEPENDENCY,
                 detail={"success": False, "error": "news service error"},
             )
+
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_424_FAILED_DEPENDENCY,
-            detail={"success": False, "error": f"{e}"},
+            detail={"success": False, "error": f"{exc}"},
         ) from exc
 
 
@@ -35,6 +36,7 @@ def get_recent_news(start: int = 0):
         content,
         "html.parser",
     )
+
     results = []
 
     for result_item in soup.find_all("div", class_="xpd"):
