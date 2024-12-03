@@ -75,8 +75,7 @@ def get_recent_news(start: int = 0):
                     }
                 )
             )
-        except ValidationError as exc:
-            print(f"News error: {str(exc)}")
+        except ValidationError:
             continue
 
     return results
