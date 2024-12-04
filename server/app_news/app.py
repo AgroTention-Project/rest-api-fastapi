@@ -11,7 +11,7 @@ from ..lib_utils.response import Response
 from . import utils
 from .models import News
 
-router = APIRouter(prefix="/news", tags=["News"])
+router = APIRouter(prefix="/news", tags=["News", "GET"])
 
 
 @router.get("")

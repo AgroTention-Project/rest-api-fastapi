@@ -21,7 +21,7 @@ router = APIRouter(
 users_extras_coll = fb_fstore.collection("users_extras")
 
 
-@router.get("/me")
+@router.get("/me", tags=["GET"])
 def get_user_detail(
     active_user: Annotated[Claims, Depends(verify_token)]
 ) -> Response[User]:
@@ -32,7 +32,7 @@ def get_user_detail(
     return Response(success=True, data=user)
 
 
-@router.delete("/me")
+@router.delete("/me", tags=["DELETE"])
 async def delete_user(
     active_user: Annotated[Claims, Depends(verify_token)]
 ) -> Response:
@@ -46,7 +46,7 @@ async def delete_user(
     return Response(success=True, message=f"delete user {user_id} succes")
 
 
-@router.get("/me/extras")
+@router.get("/me/extras", tags=["GET"])
 async def get_or_create_user_extras(
     active_user: Annotated[Claims, Depends(verify_token)]
 ) -> Response[UserExtras]:
@@ -68,7 +68,7 @@ async def get_or_create_user_extras(
     return Response(success=True, data=data)
 
 
-@router.patch("/me/extras")
+@router.patch("/me/extras", tags=["PATCH"])
 async def update_user_extras(
     body: UpdateUserExtras,
     active_user: Annotated[Claims, Depends(verify_token)],
@@ -80,7 +80,7 @@ async def update_user_extras(
     return Response(success=True, message=f"success update user {user_id}")
 
 
-@router.post("/me/profile-photo")
+@router.post("/me/profile-photo", tags=["POST"])
 async def update_or_create_photo_profile(
     image: UploadFile,
     active_user: Annotated[Claims, Depends(verify_token)],

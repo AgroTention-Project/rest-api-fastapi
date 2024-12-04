@@ -10,11 +10,11 @@ from ..lib_firebase import fb_fstore
 from ..lib_utils.response import Response
 from .models import Disease
 
-router = APIRouter(prefix="/diseases")
+router = APIRouter(prefix="/diseases", tags=["Diseases"])
 disease_collection = fb_fstore.collection("diseases")
 
 
-@router.get("/{disease_slug}", tags=["Diseases"])
+@router.get("/{disease_slug}", tags=["GET"])
 async def get_disease_detail(disease_slug: str) -> Response[Disease]:
     """
     Get Disease By Slug

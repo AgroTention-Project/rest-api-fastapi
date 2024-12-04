@@ -9,11 +9,11 @@ from ..lib_firebase import fb_fstore
 from ..lib_utils.response import Response
 from .models import Plant
 
-router = APIRouter(prefix="/plants")
+router = APIRouter(prefix="/plants", tags=["Plants"])
 plants_collection = fb_fstore.collection("plants")
 
 
-@router.get("/{plant_slug}", tags=["Plants"])
+@router.get("/{plant_slug}", tags=["GET"])
 async def get_plant_detail(plant_slug: str) -> Response[Plant]:
     """
     Get Plant Information by Plant Slug
