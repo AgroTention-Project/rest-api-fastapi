@@ -1,6 +1,6 @@
 runtime: python312
 entrypoint: fastapi dev server --host 0.0.0.0 --port $PORT
-service: development
+service: [development]
 
 env_variables:
   # Env
