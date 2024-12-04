@@ -1,9 +1,9 @@
-name: Deploy to Production Server App Engine
+name: Deploy to Development Server App Engine
 
 on:
   push:
     branches:
-      - main
+      - development
 
 jobs:
   deploy:
@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        ref: development
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v1
@@ -24,4 +26,4 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Deploy to App Engine
-      run: gcloud app deploy --quiet
+      run: gcloud app deploy --appyaml=app-dev.yaml --quiet
