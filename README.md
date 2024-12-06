@@ -83,12 +83,15 @@ This project is part of the **Bangkit Capstone Project**, developed by Team **C2
 
 ---
 
-## Usage
+## Documentation
 
-After starting the server, the API documentation will be available at:
+### Production
+- [SwaggerUI](https://agrotention-project-441716.et.r.appspot.com/docs)
+- [Redoc](https://agrotention-project-441716.et.r.appspot.com/redoc)
 
-- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+### Development
+- [SwaggerUI](https://development-agrotention-project-441716.et.r.appspot.com/docs)
+- [Redoc](https://development-agrotention-project-441716.et.r.appspot.com/redoc)
 
 ---
 
