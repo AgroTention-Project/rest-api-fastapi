@@ -6,6 +6,7 @@ mkShell {
       pipenv
     ]))
     stdenv.cc.cc
+    direnv
   ];
 
 
