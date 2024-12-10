@@ -50,7 +50,6 @@ app = FastAPI(
         {"name": "Plants"},
         {"name": "Diseases"},
         {"name": "Users"},
-        {"name": "Scanner"},
         {"name": "Results"},
     ],
     version="0.0.3",

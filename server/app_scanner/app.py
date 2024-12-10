@@ -2,47 +2,48 @@
 scanner app module
 """
 
-from fastapi import APIRouter, UploadFile, HTTPException
+from fastapi import APIRouter
+from . import services
+
+router = APIRouter(prefix="/results", tags=["Results"])
 
 
-from ..lib_utils.response import Response
+@router.post("", tags=["POST"])
+async def create_scan_result(data: dict):
+    """Create Scan Result
 
-router = APIRouter(prefix="/scan", tags=["Scanner"])
-
-
-@router.post("/{plant_slug}", tags=["POST"])
-def scan_plant(plant_slug: str, image: UploadFile):
+    Save scan result from prediction
     """
-    Scan plant diseases
-    """
-    if "image/" not in image.content_type:
-        raise HTTPException(
-            status_code=400,
-            detail=Response(
-                success=False,
-                message="invalid image type",
-            ).model_dump(),
-        )
-
-    return plant_slug
+    user_id = ""
+    await services.create_scan_result(user_id, data)
 
 
-@router.get("/results", tags=["Results", "GET"])
-def list_scan_results():
-    """
-    List user scan results
+@router.get("", tags=["GET"])
+async def list_scan_result(result_id: str):
+    """List Scan Result by id
+
+    Get result by id
     """
 
-
-@router.get("/results/{result_id}", tags=["Results", "GET"])
-def get_scan_result():
-    """
-    Get scan result for current user
-    """
+    user_id = ""
+    await services.list_scan_result(user_id=user_id)
 
 
-@router.delete("/results/{result_id}", tags=["Results", "DELETE"])
-def delete_scan_result():
+@router.get("/{result_id}", tags=["GET"])
+async def get_scan_result(result_id: str):
+    """Get Scan Result by id
+
+    Get result by id
     """
-    Delete scan result for current user
+    user_id = ""
+    await services.get_scan_result(user_id, result_id)
+
+
+@router.delete("/{result_id}", tags=["DELETE"])
+async def delete_scan_result(result_id: str):
+    """Delete Scan Result by id
+
+    Delete result by id
     """
+    user_id = ""
+    await services.delete_scan_reult(user_id, result_id)
