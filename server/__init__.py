@@ -45,6 +45,14 @@ app = FastAPI(
     debug=True,
     lifespan=lifespan,
     title="AgroTention API",
+    openapi_tags=[
+        {"name": "News"},
+        {"name": "Plants"},
+        {"name": "Diseases"},
+        {"name": "Users"},
+        {"name": "Scanner"},
+        {"name": "Results"},
+    ],
     version="0.0.3",
     description="""
 ## About the Project
