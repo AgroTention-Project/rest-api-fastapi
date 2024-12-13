@@ -15,7 +15,7 @@ def predict_rice_image(image):
     Predicts the class of an image using the loaded model.
 
     Args:
-        image_path: Path to the image file.
+        image: Path to the image file.
 
     Returns:
         A dictionary containing the predicted class label and confidence score.
@@ -43,7 +43,7 @@ def predict_rice_image(image):
     if predicted_label is not None or predicted_label is not "health":
         return {
             "plant_slug": "oryza_sativa",
-            "label": predicted_label,
+            "disease_slug": predicted_label,
             "confidence": float(confidence),
         }
     elif predicted_label is None:
@@ -82,7 +82,7 @@ def predict_potato_image(image):
     if predicted_label is not None or predicted_label is not "health":
         return {
             "plant_slug": "solanum_tuberosum",
-            "label": predicted_label,
+            "disease_slug": predicted_label,
             "confidence": float(confidence),
         }
     elif predicted_label is None:
@@ -120,7 +120,7 @@ def predict_tomato_image(image):
     if predicted_label is not None or predicted_label is not "health":
         return {
             "plant_slug": "solanum_lycopersicum",
-            "label": predicted_label,
+            "disease_slug": predicted_label,
             "confidence": float(confidence),
         }
     elif predicted_label is None:

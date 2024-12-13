@@ -3,7 +3,11 @@ scanner app module
 """
 
 from fastapi import APIRouter, UploadFile
-from ..lib_utils.tensorflow import predict_rice_image, predict_potato_image
+from ..lib_utils.tensorflow import (
+    predict_rice_image,
+    predict_potato_image,
+    predict_tomato_image,
+)
 from . import services
 import io
 
@@ -26,7 +30,7 @@ async def scan_plant(file: UploadFile, plant: str):
             result = predict_potato_image(image_io)
 
         case "tomato":
-            pass
+            result = predict_tomato_image(image_io)
 
     return result
 
