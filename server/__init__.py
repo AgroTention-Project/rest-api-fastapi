@@ -23,27 +23,8 @@ from .lib_firebase import fb_app
 ml_models: Dict[str, Model] = {}
 
 
-@asynccontextmanager
-async def lifespan(_: FastAPI):
-    """
-    app lifespan
-    """
-    # Load the ML model
-
-    load_models = list_models(app=fb_app)
-    for model in load_models.models:
-        ml_models[model.display_name] = model
-
-    print("loaded ml models", ml_models)
-    yield
-    # Clean up the ML models and release the resources
-    ml_models.clear()
-    print("crear ml models")
-
-
 app = FastAPI(
     debug=True,
-    lifespan=lifespan,
     title="AgroTention API",
     openapi_tags=[
         {"name": "News"},

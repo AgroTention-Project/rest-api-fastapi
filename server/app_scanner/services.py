@@ -2,6 +2,7 @@
 module scanner services
 """
 
+from PIL import Image
 from uuid import uuid4
 from ..lib_firebase import fb_fstore
 
